@@ -14,16 +14,13 @@ public class MainThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.gameView = gameView;
     }
-    public  void  setRunning (Boolean isRunning){
-        running = isRunning;
-    }
 
     @Override
     public void run(){
         while (running){
             canvas = null;
             try {
-                // locking canvas it prevent more than one threads from attempting to draw on it 
+                // locking canvas it prevent more than one threads from attempting to draw on it
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder){
                     this.gameView.update();
@@ -46,6 +43,10 @@ public class MainThread extends Thread {
                 }
             }
         }
+    }
+
+    public  void  setRunning (Boolean isRunning){
+        running = isRunning;
     }
 }
 

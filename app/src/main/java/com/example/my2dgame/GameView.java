@@ -1,26 +1,49 @@
 package com.example.my2dgame;
 
 import android.content.Context;
-import android.view.SurfaceView;
+import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+    private MainThread thread;
 
-    public GameView (Context context) {
+    public GameView(Context context) {
         // we are calling SuperClass which is SurfaceView
         super(context);
         getHolder().addCallback(this);
+
+        thread = new MainThread(getHolder(), this);
+        setFocusable(true);
 
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        thread.setRunning(true);
+        thread.start();
 
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        boolean retry = true;
+        while (retry){
+            try{
+                thread.setRunning(false);
+                thread.join();
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    }
+    public  void update(){
 
+    }
+    @Override
+    public void draw (Canvas canvas){
+        super.draw(canvas);
     }
 
     @Override
