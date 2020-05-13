@@ -15,6 +15,7 @@ public class MainThread extends Thread {
         this.gameView = gameView;
     }
 
+    // Game Loap
     @Override
     public void run(){
         while (running){
@@ -28,10 +29,7 @@ public class MainThread extends Thread {
 
                 }
             }
-            catch (Exception e){
-
-
-            }
+            catch (Exception e){ }
             finally{
                 if(canvas != null){
                     try {
